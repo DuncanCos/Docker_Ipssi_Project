@@ -1,0 +1,44 @@
+services:
+  mysql:
+    build:
+      context: ./mysql
+    container_name: mysql_container
+    networks:
+      - db_network
+    volumes:
+      - db_volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  app:
+    build:
+      context: ./app
+    container_name: app_container
+    networks:
+      - db_network
+      - site_network
+
+    depends_on:
+      - mysql
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx_container
+    networks:
+      - site_network
+    ports:
+      - "5423:824"
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+
+networks:
+  db_network:
+    driver: bridge
+  site_network:
+    driver: bridge
+
+volumes:
+  db_volume:
