@@ -16,6 +16,3 @@ curl http://localhost:5423/data
 
 # for more :
 aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
-```
-```
-```
